@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -b && node dist/index.js",
-    "build": "prisma generat && tsc -b && echo '✅ Build complete'",
+    "build": "npx prisma generate && tsc -b && echo '✅ Build complete'",
     "start": "echo '🚀 Starting app' && node dist/index.js"
   },
   "keywords": [],
