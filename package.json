@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "typescript": "^5.0.0",
     "@prisma/client": "^6.6.0",
     "@types/node": "^22.14.1",
     "@types/stripe": "^8.0.416",
