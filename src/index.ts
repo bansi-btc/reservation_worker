@@ -36,13 +36,6 @@ async function startWorker() {
         continue;
       }
 
-      //seats are now locked
-
-      //now we can mark the bookingJob status as payment awaiting and generating a stripe URL
-
-      //first generate a stripe url for payment
-      //mark the status in DB as payment awaiting with the url
-
       const metaData = {
         seatsToBook,
         userId,
