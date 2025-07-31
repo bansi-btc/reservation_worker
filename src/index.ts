@@ -10,21 +10,20 @@ async function startWorker() {
   console.log("🚀 Worker started. Listening to queue...");
 
   while (true) {
+    // Wait for new booking job (BRPOP blocks until something arrives)
+    const result = await redis.brPop("bookings", 0);
+    const rawData = result?.element;
+
+    if (!rawData) continue;
+
+    const data = JSON.parse(rawData);
+    const { bookingId, showtimeId, userId, seatsToBook } = data;
+
+    if (!bookingId || !showtimeId || !userId || !seatsToBook) {
+      console.error("❌ Invalid data received:", data);
+      continue;
+    }
     try {
-      // Wait for new booking job (BRPOP blocks until something arrives)
-      const result = await redis.brPop("bookings", 0);
-      const rawData = result?.element;
-
-      if (!rawData) continue;
-
-      const data = JSON.parse(rawData);
-      const { bookingId, showtimeId, userId, seatsToBook } = data;
-
-      if (!bookingId || !showtimeId || !userId || !seatsToBook) {
-        console.error("❌ Invalid data received:", data);
-        continue;
-      }
-
       try {
         const locks = await lockSeatTemporarily({
           showtimeId,
